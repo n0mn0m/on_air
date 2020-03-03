@@ -1,0 +1,30 @@
+ON AIR -*- mode: org -*-
+* Voice Recognition with Tensorflow
+  
+For the audio recognition this is going to be a two step process. First a VAD is
+always on. If it detections the presence of a human voice it will begin streaming
+to the TF keyword model. If it streams for a given period of time without the TF
+model detecting the "On" "Air" keyword trigger it will go ahead and POST "true"
+to the worker API.
+
+
+** Tensorflow for Micros
+- https://www.tensorflow.org/lite/microcontrollers
+
+** Voice Activity Detection (VAD)
+- https://www.kaggle.com/holzner/voice-activity-detection-example
+- https://stackoverflow.com/questions/54174365/does-tensorflow-audio-speech-recognition-work-with-multi-word-trigger-keywords
+
+** Data
+- https://github.com/JohannesBuchner/spoken-command-recognition/tree/master/tensorflow-speech-words
+
+** Examples
+- https://github.com/tensorflow/docs/blob/master/site/en/r1/tutorials/sequences/audio_recognition.md
+- https://codelabs.developers.google.com/codelabs/tensorflowjs-audio-codelab/index.html#0
+- https://www.kaggle.com/davids1992/speech-representation-and-data-exploration
+  
+
+** More Reading
+- https://hackernoon.com/hello-from-the-mobile-side-tensorflow-lite-in-speaker-recognition-7519b18c2646
+- https://www.seeedstudio.com/blog/2020/01/23/offline-speech-recognition-on-raspberry-pi-4-with-respeaker/
+- https://www.wiley.com/en-us/Digital+Speech%3A+Coding+for+Low+Bit+Rate+Communication+Systems%2C+2nd+Edition-p-9780470870082

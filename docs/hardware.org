@@ -1,0 +1,51 @@
+ON AIR -*- mode: org -*-
+* Automatic "On Air" display
+
+For this project there will be two primary devices. The audio processing device and the display. 
+
+*** Considerations
+    Version 1 of this project should be completed by April 7, 2020 in relation to the Hackaday
+    Train all the Things event:: https://hackaday.io/contest/169421-train-all-the-things
+    Because of that for version 1 I'm going to focus on making sure most of the new learning
+    activities are in software since that's my strength and make notes for version 2 hardware
+    ideas that would drive my to learn more in the hardware realm.
+
+    Tensorflow has been confirmed working on these boards: https://www.tensorflow.org/lite/microcontrollers
+    The only board that supports audio and wifi on the same package from the list of micros is
+    the esp-eye. While I don't need the camera researching wifi for some of the other boards in
+    the form of shields, out of processor add ons and other routes lead me to seeing that as a
+    time cost with no prior experience on my end.
+
+
+** Boards
+*** Audio Processing Device:
+- Version 1:
+-- ESP-EYE:: https://www.espressif.com/en/products/hardware/esp-eye/overview
+  
+Justification: I have some prior experience with ESP boards, TF Lite confirms working on this
+board, and we get audio and wifi in one package.
+
+*** Display Device:
+- Version 1:
+-- PyPortal Titano:: https://learn.adafruit.com/adafruit-pyportal-titano
+
+Justification: I've got experience with CircuitPython and Arduino as well as the original
+PyPortal. WiFi is supported with drivers ready, and the display is big enough to be easy for 
+somebody to check at a glance.
+
+*** Future Version:
+-- Sifive Hifive
+
+Justification: I've wanted to learn more about out of processor interactions which this board
+supports for WiFi. Additionally adding an LCD is possible, but again not something I've done so
+a good learning experience. RISCV and a Rust project would be interesting.
+
+- Links for the future:
+-- WiFi:
+--- https://forums.sifive.com/t/hifive1-revb-wifi/2347/17
+--- https://forums.sifive.com/t/hifive1-rev-b-how-to-use-wifi-how-to-get-set-cpu-clock-speed/2902
+-- Display:
+--- https://forums.sifive.com/t/building-a-little-home-game-computer-from-a-hifive-1/1785
+--- https://forums.sifive.com/t/timings-for-drawing-vga-graphics/460
+
+

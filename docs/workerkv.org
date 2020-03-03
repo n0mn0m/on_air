@@ -1,0 +1,12 @@
+ON AIR -*- mode: org -*-
+* Bit signal worker
+
+When the VAD has detected audio long enough, or speech recognition detects the
+keyword trigger then the device will POST to a Cloudflare Worker. By doing this
+any number of devices can then monitor the worker value and drive their behavior
+based on the worker flag.
+
+*** Links
+- https://developers.cloudflare.com/workers/
+- https://developers.cloudflare.com/workers/reference/storage/
+- https://developers.cloudflare.com/workers/tutorials/build-a-todo-list/
