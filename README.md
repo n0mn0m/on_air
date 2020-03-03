@@ -10,7 +10,7 @@ Additionally the VAD will update the API if a given amount of time goes by
 with continous voice activity that does not contain the trigger keyword.
 
 ## Logic Flow
-!["On Air logic flow"](imgs/on-air-transparent.svg "On Air logic flow")
+!["On Air logic flow"](imgs/on-air-grid.jpg"On Air logic flow")
 
 
 ## Getting Started
