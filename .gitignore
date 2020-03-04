@@ -1,9 +1,6 @@
 #Mac
 .DS_Store
 
-# Jolly Wrencher Backgrounds
-display/screens/hackaday
-
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -345,3 +342,7 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
+# Local
+display/secrets.py
+# Jolly Wrencher Backgrounds
+display/screens/hackaday
