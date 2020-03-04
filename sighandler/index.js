@@ -5,9 +5,7 @@ const getCache = key => SIGNALS.get(key);
 * Fetch given status based on key passed as query param
 **/
 async function getStatus(cacheKey) {
-    console.log(cacheKey)
     var serviceStat = await getCache(cacheKey);
-    console.log(serviceStat)
 
     if (!serviceStat) {
         return new Response('invalid status key', { status: 500 });
@@ -33,8 +31,6 @@ async function handleRequest(request) {
     let presharedKey = new URL(request.url).searchParams.get('psk');
     let statusKey = new URL(request.url).searchParams.get('service');
     let statusValue = new URL(request.url).searchParams.get('status');
-
-    console.log(statusKey)
 
     if (presharedKey === psk) {
         if (request.method === 'POST') {
