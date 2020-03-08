@@ -1,5 +1,5 @@
 get:
-	curl -X GET 'https://signal.unexpectedeof.casa/?service=ON_AIR&psk='
+	curl -X GET 'https://signal.unexpectedeof.casa/on-air'
 
 publish:
 	wrangler publish
@@ -8,5 +8,5 @@ preview:
 	wrangler preview --watch
 
 update:
-	curl -X POST 'https://signal.unexpectedeof.casa/?service=ON_AIR&status=<>&psk=<>'
+	curl -X PUT 'https://signal.unexpectedeof.casa/on-air'
 

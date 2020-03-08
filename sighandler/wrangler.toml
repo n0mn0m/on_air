@@ -1,7 +1,7 @@
 name = "signal"
 type = "javascript"
 account_id = "71d34bfddb24398d3316987ca0abe9df"
-route = "https://signal.unexpectedeof.casa/*"
+route = "https://signal.unexpectedeof.casa/on-air"
 zone_id = "c4bf237d62f19e697f634cf753867c2d"
 
 kv-namespaces = [
