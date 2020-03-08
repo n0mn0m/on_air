@@ -346,3 +346,6 @@ dkms.conf
 display/secrets.py
 # Jolly Wrencher Backgrounds
 display/screens/hackaday
+.vscode
+sdkconfig
+sdkconfig.old
