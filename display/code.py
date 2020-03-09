@@ -7,6 +7,7 @@ status received from the monitor end point.
 For more information about the PyPortal see https://learn.adafruit.com/adafruit-pyportal
 """
 import board
+import supervisor
 from time import sleep
 from adafruit_pyportal import PyPortal
 
@@ -25,15 +26,18 @@ pyportal = PyPortal(
 current = 0
 
 while True:
-    status = int(pyportal.fetch())
-    if status == 0 and status == current:
-        pass
-    elif status == 0 and status != current:
-        pyportal.set_background("green.bmp")
-        current = 0
-    elif status == 1 and status != current:
-        pyportal.set_background("red.bmp")
-        current = 1
-    elif status == 1 and status == current:
-        pass
-    sleep(30)
+    try:
+        status = int(pyportal.fetch())
+        if status == 0 and status == current:
+            pass
+        elif status == 0 and status != current:
+            pyportal.set_background("green.bmp")
+            current = 0
+        elif status == 1 and status != current:
+            pyportal.set_background("red.bmp")
+            current = 1
+        elif status == 1 and status == current:
+            pass
+        sleep(30)
+    except RuntimeError:
+        supervisor.reload()
