@@ -5,10 +5,10 @@
 # demo code uses TF 1.x demo commands so even though micro
 # is in 2.x you will need to use TF 1.15
 
-source $HOME/.virtualsenvs/37/bin/activate && \
+source $HOME/.virtualenvs/37/bin/activate && \
 toco --graph_def_file=$HOME/projects/on-air/voice-assistant/train/model/tiny_conv.pb \
 --output_file=$HOME/projects/on-air/voice-assistant/train/model/tiny_conv.tflite \
---input_shapes=1,98,40,1 \
+--input_shapes=1,49,40,1 \
 --input_arrays=Reshape_2 \
 --output_arrays='labels_softmax' \
 --inference_type=QUANTIZED_UINT8 \

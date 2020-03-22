@@ -5,9 +5,10 @@
 # demo code uses TF 1.x demo commands so even though micro
 # is in 2.x you will need to use TF 1.15
 
-source $HOME/.virtualsenvs/37/bin/activate && \
+source $HOME/.virtualenvs/37/bin/activate && \
 python $HOME/projects/tensorflow/tensorflow/examples/speech_commands/freeze.py \
 --model_architecture=tiny_conv \
+--window_stride=20 \
 --preprocess=micro \
 --wanted_words="hi,on" \
 --quantize=1 \
