@@ -5,8 +5,9 @@ all: background code
 background:
 	cp screens/*.bmp /Volumes/PYPORTAL
 
-code: build save
+code:
 	cp code.py /Volumes/PYPORTAL
+	cp secrets.py /Volumes/PYPORTAL
 
 # https://learn.adafruit.com/building-circuitpython/build-circuitpython
 get-mpy-cross:
