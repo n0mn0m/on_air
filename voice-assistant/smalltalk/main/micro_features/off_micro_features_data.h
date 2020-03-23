@@ -1,8 +1,0 @@
-#ifndef TENSORFLOW_LITE_MICRO_EXAMPLES_MICRO_SPEECH_MICRO_FEATURES_OFF_MICRO_FEATURES_DATA_H_
-#define TENSORFLOW_LITE_MICRO_EXAMPLES_MICRO_SPEECH_MICRO_FEATURES_OFF_MICRO_FEATURES_DATA_H_
-
-extern const int g_25132942_nohash_0_width;
-extern const int g_25132942_nohash_0_height;
-extern const unsigned char g_25132942_nohash_0_data[];
-
-#endif

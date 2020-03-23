@@ -1,8 +1,0 @@
-#ifndef TENSORFLOW_LITE_MICRO_EXAMPLES_MICRO_SPEECH_MICRO_FEATURES_SMALLTALK_MICRO_FEATURES_DATA_H_
-#define TENSORFLOW_LITE_MICRO_EXAMPLES_MICRO_SPEECH_MICRO_FEATURES_SMALLTALK_MICRO_FEATURES_DATA_H_
-
-extern const int g_tf_2225_width;
-extern const int g_tf_2225_height;
-extern const unsigned char g_tf_2225_data[];
-
-#endif

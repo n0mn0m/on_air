@@ -22,6 +22,6 @@ limitations under the License.
 #define TENSORFLOW_LITE_MICRO_EXAMPLES_MICRO_SPEECH_MICRO_FEATURES_TINY_CONV_MICRO_FEATURES_MODEL_DATA_H_
 
 extern const unsigned char g_tiny_conv_micro_features_model_data[];
-extern const unsigned int g_tiny_conv_micro_features_model_data_len;
+extern const int g_tiny_conv_micro_features_model_data_len;
 
 #endif  // TENSORFLOW_LITE_MICRO_EXAMPLES_MICRO_SPEECH_MICRO_FEATURES_TINY_CONV_MICRO_FEATURES_MODEL_DATA_H_
