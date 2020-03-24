@@ -10,7 +10,7 @@ python $HOME/projects/tensorflow/tensorflow/examples/speech_commands/freeze.py \
 --model_architecture=tiny_conv \
 --window_stride=20 \
 --preprocess=micro \
---wanted_words="hi,on" \
+--wanted_words="visual,on,off" \
 --quantize=1 \
 --output_file=$HOME/projects/on-air/voice-assistant/train/model/tiny_conv.pb \
 --start_checkpoint=$HOME/projects/on-air/voice-assistant/train/model/speech_commands_train/tiny_conv.ckpt-18000

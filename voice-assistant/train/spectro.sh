@@ -30,3 +30,9 @@ python $HOME/projects/tensorflow/tensorflow/examples/speech_commands/wav_to_feat
 --window_stride=20 \
 --preprocess=average \
 --quantize=1
+python $HOME/projects/tensorflow/tensorflow/examples/speech_commands/wav_to_features.py \
+--input_wav=$HOME/projects/on-air/voice-assistant/train/tmp/labeled_words/tf/visual/7e7ca854_nohash_0.wav \
+--output_c_file=$HOME/projects/on-air/voice-assistant/train/model/visual_features_data.cc \
+--window_stride=20 \
+--preprocess=average \
+--quantize=1

@@ -10,7 +10,7 @@ python $HOME/projects/tensorflow/tensorflow/examples/speech_commands/train.py \
 --model_architecture=tiny_conv \
 --window_stride=20 \
 --preprocess=micro \
---wanted_words="hi,on" \
+--wanted_words="visual,on,off" \
 --silence_percentage=25 \
 --unknown_percentage=25 \
 --quantize=1 \
