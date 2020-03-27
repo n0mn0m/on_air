@@ -349,3 +349,6 @@ display/screens/hackaday
 .vscode
 sdkconfig
 sdkconfig.old
+
+# Emacs save files
+*#

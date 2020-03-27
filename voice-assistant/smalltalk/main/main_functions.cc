@@ -14,7 +14,7 @@ limitations under the License.
 ==============================================================================*/
 
 #include "main_functions.h"
-
+#include "driver/gpio.h"
 #include "audio_provider.h"
 #include "command_responder.h"
 #include "feature_provider.h"
@@ -27,6 +27,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/micro_mutable_op_resolver.h"
 #include "tensorflow/lite/schema/schema_generated.h"
 #include "tensorflow/lite/version.h"
+
 
 // Globals, used for compatibility with Arduino-style sketches.
 namespace {
@@ -41,14 +42,27 @@ int32_t previous_time = 0;
 // Create an area of memory to use for input, output, and intermediate arrays.
 // The size of this will depend on the model you're using, and may need to be
 // determined by experimentation.
-constexpr int kTensorArenaSize = 10 * 1024;
+constexpr int kTensorArenaSize = 12 * 1024;
 uint8_t tensor_arena[kTensorArenaSize];
 uint8_t feature_buffer[kFeatureElementCount];
 uint8_t* model_input_buffer = nullptr;
+
+// Handle wake word and processing a command.
+// Using score for evaluation based on manual testing and the fact
+// that is_new_command from the lib doesn't seem reliable.
+bool is_awake = false;
+const char wake_word[] = "visual";
+uint8_t wait_time = 75;
+uint8_t elapsed_wait = 0;
 }  // namespace
+
 
 // The name of this function is important for Arduino compatibility.
 void setup() {
+  // Set direction for our LEDs
+  gpio_set_direction(GPIO_LED_RED, GPIO_MODE_OUTPUT);
+  gpio_set_direction(GPIO_LED_WHITE, GPIO_MODE_OUTPUT);
+  
   // Set up logging. Google style is to avoid globals or statics because of
   // lifetime uncertainty, but since this has a trivial destructor it's okay.
   // NOLINTNEXTLINE(runtime-global-variables)
@@ -158,14 +172,35 @@ void loop() {
   bool is_new_command = false;
   TfLiteStatus process_status = recognizer->ProcessLatestResults(
       output, current_time, &found_command, &score, &is_new_command);
+
   if (process_status != kTfLiteOk) {
     TF_LITE_REPORT_ERROR(error_reporter,
                          "RecognizeCommands::ProcessLatestResults() failed");
     return;
   }
-  // Do something based on the recognized command. The default implementation
-  // just prints to the error console, but you should replace this with your
-  // own function for a real application.
-  RespondToCommand(error_reporter, current_time, found_command, score,
-                   is_new_command);
+
+
+  if (score > 150 and strcmp(found_command, wake_word) == 0) {
+    TF_LITE_REPORT_ERROR(error_reporter, "Waking up");
+    is_awake = true;
+    gpio_set_level(GPIO_LED_WHITE, 1);
+  }
+
+  if (is_awake) {
+    if (elapsed_wait == wait_time) {
+	TF_LITE_REPORT_ERROR(error_reporter, "Going back to sleep.");
+	is_awake = false;
+	elapsed_wait = 0;
+	gpio_set_level(GPIO_LED_WHITE, 0);
+    }
+
+    if (score > 150) {
+	gpio_set_level(GPIO_LED_RED, 1);
+	RespondToCommand(error_reporter, current_time, found_command, score,
+			is_new_command);
+	gpio_set_level(GPIO_LED_RED, 0);
+    }
+
+    elapsed_wait++;
+  }
 }
