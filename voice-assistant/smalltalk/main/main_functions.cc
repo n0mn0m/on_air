@@ -16,7 +16,6 @@ limitations under the License.
 #include "main_functions.h"
 #include "driver/gpio.h"
 #include "audio_provider.h"
-#include "command_responder.h"
 #include "feature_provider.h"
 #include "micro_features/micro_model_settings.h"
 #include "micro_features/tiny_conv_micro_features_model_data.h"
@@ -27,6 +26,13 @@ limitations under the License.
 #include "tensorflow/lite/micro/micro_mutable_op_resolver.h"
 #include "tensorflow/lite/schema/schema_generated.h"
 #include "tensorflow/lite/version.h"
+#include "esp_log.h"
+#include "esp_system.h"
+#include "esp_event.h"
+#include "esp_netif.h"
+#include "esp_wifi.h"
+#include "nvs_flash.h"
+#include "http/toggle_status.h"
 
 
 // Globals, used for compatibility with Arduino-style sketches.
@@ -62,6 +68,31 @@ void setup() {
   // Set direction for our LEDs
   gpio_set_direction(GPIO_LED_RED, GPIO_MODE_OUTPUT);
   gpio_set_direction(GPIO_LED_WHITE, GPIO_MODE_OUTPUT);
+
+  esp_err_t ret = nvs_flash_init();
+
+  if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
+    ESP_ERROR_CHECK(nvs_flash_erase());
+    ret = nvs_flash_init();
+  }
+
+  ESP_ERROR_CHECK(ret);
+
+  //Setup wifi stack
+  ESP_ERROR_CHECK(esp_netif_init());
+  esp_netif_create_default_wifi_sta();
+
+  wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
+  ESP_ERROR_CHECK(esp_wifi_init(&cfg));
+
+  wifi_config_t wifi_config = { };
+  strcpy((char*)wifi_config.sta.ssid, WIFI_SSID);
+  strcpy((char*)wifi_config.sta.password, WIFI_PWD);
+  //sta_config.sta.bssid_set = false;
+  ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_STA));
+  ESP_ERROR_CHECK(esp_wifi_set_config(ESP_IF_WIFI_STA, &wifi_config) );
+  ESP_ERROR_CHECK(esp_wifi_start());
+  ESP_ERROR_CHECK(esp_wifi_connect());
   
   // Set up logging. Google style is to avoid globals or statics because of
   // lifetime uncertainty, but since this has a trivial destructor it's okay.
@@ -186,7 +217,7 @@ void loop() {
     gpio_set_level(GPIO_LED_WHITE, 1);
   }
 
-  if (is_awake) {
+  if (is_awake and strcmp(found_command, wake_word) != 0) {
     if (elapsed_wait == wait_time) {
 	TF_LITE_REPORT_ERROR(error_reporter, "Going back to sleep.");
 	is_awake = false;
@@ -196,8 +227,7 @@ void loop() {
 
     if (score > 150) {
 	gpio_set_level(GPIO_LED_RED, 1);
-	RespondToCommand(error_reporter, current_time, found_command, score,
-			is_new_command);
+	https_with_url();
 	gpio_set_level(GPIO_LED_RED, 0);
     }
 
