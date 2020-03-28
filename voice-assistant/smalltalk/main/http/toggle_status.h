@@ -7,8 +7,12 @@
 
 #define MAX_HTTP_RECV_BUFFER 512
 
-static const char *TAG = "HTTPS_HANDLING";
-static const char *URL = "https://signal.unexpectedeof.casa/on-air";
+/* 
+   openssl s_client -showcerts -connect signal.unexpectedeof.casa:443 </dev/null
+   The CA root cert is the last cert given in the chain of certs.
+   To embed it in the app binary, the PEM file is named
+   in the component.mk COMPONENT_EMBED_TXTFILES variable.
+*/
 
 extern const char unexpectedeof_casa_root_cert_pem_start[] asm("_binary_unexpectedeof_casa_root_cert_pem_start");
 extern const char unexpectedeof_casa_root_cert_pem_end[]   asm("_binary_unexpectedeof_casa_root_cert_pem_end");
