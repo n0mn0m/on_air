@@ -79,8 +79,9 @@ while True:
         if  last_check > 10 or last_check == -1:
             last_check = 0
             hour = get_current_hour(pyportal)
-        if hour > 21:
-            deep_sleep(pyportal)
+            print(hour)
+            if hour >= 21:
+                deep_sleep(pyportal)
         else:
             status = interpret_status(pyportal, status)
         last_check += 1
