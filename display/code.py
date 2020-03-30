@@ -24,6 +24,8 @@ pyportal = PyPortal(
 )
 
 pyportal.set_backlight(.5)
+display = board.DISPLAY
+display.rotation = 180
 
 def deep_sleep(portal):
     """
@@ -34,7 +36,9 @@ def deep_sleep(portal):
     portal.neo_status((0, 0, 0))
     # Magic numbers, this is 9 hours in seconds
     time.sleep(32400)
-    portal.set_backlight(.5)
+    # Go ahead and reload the device after sleeping
+    # to restart the day with defaults.
+    supervisor.reload()
     
 def get_current_hour(portal):
     try:
